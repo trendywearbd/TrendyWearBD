@@ -32,6 +32,11 @@ jobs:
           unzip -q TrendyWearBD-AndroidStudio.zip
           test -f TrendyWearBD-AndroidStudio/settings.gradle.kts
 
+      - name: Fix Android build configuration
+        working-directory: TrendyWearBD-AndroidStudio
+        run: |
+          sed -i '/WebView.setWebContentsDebuggingEnabled(BuildConfig.DEBUG)/d' app/src/main/java/com/trendywearbd/app/MainActivity.kt
+
       - name: Build Debug APK
         working-directory: TrendyWearBD-AndroidStudio
         run: gradle assembleDebug --stacktrace
